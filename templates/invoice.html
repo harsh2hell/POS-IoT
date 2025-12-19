@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-7">
+    <div class="card shadow-sm">
+
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <h3 class="mb-0">DBS Global University</h3>
+            <small class="text-muted">Canteen Invoice</small>
+          </div>
+          <div class="text-end">
+            <div class="fw-semibold">Invoice #{{ invoice.id }}</div>
+            <small class="text-muted">{{ invoice.created_at }}</small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          {% if invoice.status == 'PAID' %}
+            <span class="badge bg-success">PAID</span>
+          {% else %}
+            <span class="badge bg-warning text-dark">PENDING</span>
+          {% endif %}
+        </div>
+
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item</th>
+              <th class="text-end">Price</th>
+              <th class="text-center">Qty</th>
+              <th class="text-end">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for it in items %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ it.name }}</td>
+              <td class="text-end">₹{{ "%.2f"|format(it.price) }}</td>
+              <td class="text-center">{{ it.quantity }}</td>
+              <td class="text-end">₹{{ "%.2f"|format(it.line_total) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="text-end mt-3">
+          <div>Subtotal: ₹{{ "%.2f"|format(invoice.subtotal) }}</div>
+          <div>GST: ₹{{ "%.2f"|format(invoice.gst) }}</div>
+          <h5>Total: ₹{{ "%.2f"|format(invoice.total) }}</h5>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between mt-3 no-print">
+      <a href="{{ url_for('menu') }}" class="btn btn-outline-secondary">New Order</a>
+
+      {% if invoice.status == 'PENDING' %}
+      <form method="POST" action="{{ url_for('confirm_paid', invoice_id=invoice.id) }}">
+        <button class="btn btn-success">Confirm Payment</button>
+      </form>
+      {% else %}
+      <button class="btn btn-primary" onclick="window.print()">Print Invoice</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

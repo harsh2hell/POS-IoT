@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SaaS Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- 🔥 YOUR PREMIUM CSS (RESTORED) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  {% block page_style %}{% endblock %}
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg main-navbar shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('menu') }}">
+      <img src="{{ url_for('static', filename='nav_logo.png') }}"
+           style="height:40px;border-radius:6px;">
+      <span class="fw-semibold"></span>
+    </a>
+
+    <div class="ms-auto d-flex gap-2">
+      <a class="nav-link" href="{{ url_for('menu') }}">
+        <i class="bi bi-grid me-1"></i> Menu
+      </a>
+
+      <a class="nav-link" href="{{ url_for('suggest_page') }}">
+        <i class="bi bi-chat-dots me-1"></i> Feedback
+      </a>
+
+      <a class="btn btn-dark btn-sm px-3" href="{{ url_for('login') }}">
+        <i class="bi bi-person-lock me-1"></i> Staff
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- BACKGROUND EFFECT -->
+<div class="bg-orbit"></div>
+
+<main class="main-shell container py-4 py-md-5">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert alert-success shadow-sm">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer-muted text-center py-3 small">
+  Designed & Created by <strong>HarshX</strong> Community<br>
+  &copy; {{ current_year }} DBS Global University
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Reveal Animations -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) return;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  items.forEach(el => io.observe(el));
+});
+</script>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

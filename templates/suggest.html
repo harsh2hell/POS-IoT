@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card reveal card-hover" data-delay="40">
+      <div class="card-body">
+        <h3 class="card-title text-center mb-3">Shop Feedback</h3>
+        <p class="muted text-center mb-4">
+          Tell us what new items you want and how your experience was.
+        </p>
+        <form method="POST" action="{{ url_for('suggest') }}">
+          <div class="mb-3">
+            <label class="form-label">Item you want</label>
+            <input type="text" name="item" class="form-control"
+                   placeholder="e.g. Eggless Pastry" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Your name</label>
+            <input type="text" name="customer" class="form-control"
+                   placeholder="Optional">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Rating</label>
+            <select name="rating" class="form-select">
+              <option value="">Rate us (1–5)</option>
+              <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+              <option value="4">⭐⭐⭐⭐ Good</option>
+              <option value="3">⭐⭐⭐ Average</option>
+              <option value="2">⭐⭐ Poor</option>
+              <option value="1">⭐ Bad</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Comments / Suggestions</label>
+            <textarea name="comments" class="form-control" rows="4"
+                      placeholder="Anything we can improve?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success w-100">
+            Send Feedback
+          </button>
+        </form>
+        <p class="text-center mt-3">
+          <a href="{{ url_for('menu') }}">← Back to Billing</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

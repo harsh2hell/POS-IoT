@@ -1,0 +1,214 @@
+/* ===============================
+   GLOBAL DESIGN SYSTEM
+   DBS CANTEEN POS – PRO UI
+================================ */
+
+:root {
+  --bg-main: #f5f7fb;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-soft: #eef2ff;
+
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+
+  --border-soft: rgba(15, 23, 42, 0.08);
+
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  --radius-xl: 18px;
+  --radius-lg: 14px;
+
+  --shadow-soft: 0 8px 30px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 16px 40px rgba(15, 23, 42, 0.15);
+
+  --blur-glass: blur(14px);
+}
+
+/* DARK THEME */
+[data-theme="dark"] {
+  --bg-main: #020617;
+  --bg-card: rgba(15, 23, 42, 0.85);
+  --bg-soft: rgba(30, 41, 59, 0.7);
+
+  --text-main: #e5e7eb;
+  --text-muted: #94a3b8;
+
+  --border-soft: rgba(148, 163, 184, 0.25);
+
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.5);
+  --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+/* ===============================
+   BASE RESET
+================================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #c7d2fe 0%, var(--bg-main) 40%);
+  color: var(--text-main);
+  min-height: 100vh;
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+[data-theme="dark"] body {
+  background: radial-gradient(circle at top, #1e293b 0%, #020617 45%);
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+.main-navbar {
+  backdrop-filter: var(--blur-glass);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.nav-link {
+  color: var(--text-main) !important;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.75;
+}
+
+/* ===============================
+   CARDS
+================================ */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.btn {
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), #6366f1);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-hover), #4f46e5);
+}
+
+.btn-outline-dark,
+.btn-outline-secondary,
+.btn-outline-light {
+  border-color: var(--border-soft);
+}
+
+/* ===============================
+   TEXT HELPERS
+================================ */
+.muted,
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.stat {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* ===============================
+   TABLES
+================================ */
+.table {
+  color: var(--text-main);
+}
+
+.table thead {
+  background: var(--bg-soft);
+}
+
+/* ===============================
+   FOOTER
+================================ */
+.footer-muted {
+  color: var(--text-muted);
+}
+
+/* ===============================
+   REVEAL ANIMATION
+================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide elements during print */
+@media print {
+  .no-print,
+  .navbar,
+  .footer-muted {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
+/* Fix: Make hero / stock update card white like others */
+.hero-card {
+    background: #ffffff !important;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* Text color adjustments for white background */
+.hero-card h2,
+.hero-card .stat {
+    color: #111827;
+}
+
+.hero-card p,
+.hero-card .muted {
+    color: #6b7280;
+}
+
+/* Fix hero card inner spacing */
+.hero-card {
+    padding: 1.5rem 1.75rem; /* match Bootstrap card-body feel */
+}
+
+/* Ensure no child element overrides spacing */
+.hero-card > * {
+    margin-left: 0;
+}
